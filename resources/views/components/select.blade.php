@@ -1,0 +1,40 @@
+@props([
+    'for' => '',
+    'label' => '',
+    'options' => [], // Se mantiene como un array o colección
+    'placeholder' => 'Seleccione una opción...',
+])
+
+<div class="relative mb-5">
+    @if ($label)
+        <label for="{{ $for }}" class="block mb-2 text-sm font-medium text-base-900">{{ $label }}</label>
+    @endif
+
+    <select id="{{ $for }}" name="{{ $for }}"
+        {{ $attributes->merge([
+            'class' => 'block w-full bg-base-50 appearance-none border border-primary-600 text-base-900 text-sm rounded-lg 
+                                    focus:outline-1 focus:outline-base-700 focus:bg-white p-2.5 cursor-pointer',
+        ]) }}>
+        <option value="">{{ $placeholder }}</option>
+
+        @foreach ($options as $option)
+            <div wire:key="{{ $option['id'] }}">
+                <option value="{{ $option['id'] }}" @selected(old($for) == $option['id'])>
+                    {{ $option['name'] }}
+                </option>
+            </div>
+        @endforeach
+    </select>
+
+    <div class="absolute inset-y-0 right-5 top-8 flex items-center pointer-events-none">
+        <svg class="w-4 h-4 text-primary-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clip-rule="evenodd" />
+        </svg>
+    </div>
+
+    @error($for)
+        <p class="text-sm text-accent-3">{{ $message }}</p>
+    @enderror
+</div>

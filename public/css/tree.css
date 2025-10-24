@@ -1,0 +1,127 @@
+/* Definir variables CSS para los colores */
+:root {
+    --border-color: #334155;
+    --bg-color: #ffffff;
+    --text-color: #334155;
+    --hover-bg-color: #f8fafc;
+    --hover-text-color: #0f172a;
+    --hover-border-color: #0f172a;
+    --shadow-color: rgba(0, 0, 0, 0.8);
+    --shadow-hover-color: rgba(0, 0, 0, 0.9);
+    --border-left-color: 6px solid #059669;
+    --hover-border-left-color: 6px solid #047857;
+}
+
+.caja {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+/* Estilos para el árbol */
+.tree {
+    width: max-content; /* El ancho se ajusta al contenido */
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
+
+.tree ul {
+    padding-top: 20px;
+    position: relative;
+    transition: all 0.5s;
+}
+
+.tree li {
+    float: left;
+    text-align: center;
+    list-style-type: none;
+    position: relative;
+    padding: 20px 5px 0 5px;
+    transition: all 0.5s;
+}
+
+.tree li::before,
+.tree li::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 50%;
+    border-top: 1px solid var(--border-color);
+    width: 50%;
+    height: 20px;
+}
+
+.tree li::after {
+    right: auto;
+    left: 50%;
+    border-left: 1px solid var(--border-color);
+}
+
+.tree li:only-child::after,
+.tree li:only-child::before {
+    display: none;
+}
+
+.tree li:only-child {
+    padding-top: 0;
+}
+
+.tree li:first-child::before,
+.tree li:last-child::after {
+    border: 0 none;
+}
+
+.tree li:last-child::before {
+    border-right: 1px solid var(--border-color);
+    border-radius: 0 5px 0 0;
+}
+
+.tree li:first-child::after {
+    border-radius: 5px 0 0 0;
+}
+
+.tree ul ul::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    border-left: 1px solid var(--border-color);
+    width: 0;
+    height: 20px;
+}
+
+.transition-shadow {
+    transition: box-shadow 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.tree li a {
+    cursor: pointer;
+    border-top: var(--border-left-color);
+    padding: 5px 10px;
+    background: var(--bg-color);
+    text-decoration: none;
+    color: var(--text-color);
+    font-family: Arial, Verdana, Tahoma;
+    font-size: 11px;
+    display: inline-block;
+    border-radius: 20px;
+    box-shadow: 0px 2px 5px var(--shadow-color);
+    transition: box-shadow 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.tree li a:hover,
+.tree li a:hover + ul li a {
+    background: var(--hover-bg-color);
+    color: var(--hover-text-color);
+    border-top: var(--hover-border-left-color);
+    box-shadow: 2px 4px 8px var(--shadow-hover-color);
+    transform: scale(1.05);
+}
+
+.tree li a:hover + ul li::after,
+.tree li a:hover + ul li::before,
+.tree li a:hover + ul::before,
+.tree li a:hover + ul ul::before {
+    border-color: var(--hover-border-color);
+}

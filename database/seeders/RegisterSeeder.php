@@ -103,8 +103,7 @@ class RegisterSeeder extends Seeder
             }
 
 
-           $sponsorId = $user->id;
-
+            $sponsorId = $user->id;
             while ($matrix = ForcedMatrix::where('user_id', $sponsorId)->first()) {
 
                 $matrixTotal = MatrixTotal::where('user_id', $matrix->sponsor_id)

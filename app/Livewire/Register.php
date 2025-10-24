@@ -249,6 +249,24 @@ class Register extends Component
             // Sube al siguiente nivel
             $sponsorId = $matrix->placement_id;
         }
+
+        $sponsorId = $userId;
+        while ($matrix = ForcedMatrix::where('user_id', $sponsorId)->first()) {
+
+            $matrixTotal = MatrixTotal::where('user_id', $matrix->sponsor_id)
+                ->lockForUpdate()
+                ->first();
+
+            if (!$matrixTotal) {
+                break; // seguridad: si no existe, salimos del bucle
+            }
+
+            // Incrementa total_unilevel
+            $matrixTotal->increment('total_unilevel');
+
+            // Sube al siguiente nivel
+            $sponsorId = $matrix->sponsor_id;
+        }
     }
 
     public function redirectToHome()

@@ -8,6 +8,21 @@
             'route' => 'home',
             'routeIs' => 'home',
         ],
+        [
+            'type' => 'route',
+            'name' => 'Videos',
+            'icon' => 'play-circle',
+            'route' => 'videos.index',
+            'routeIs' => 'videos*',
+        ],
+
+        [
+            'type' => 'route',
+            'name' => 'Productos',
+            'icon' => 'shopping-cart',
+            'route' => 'products.index',
+            'routeIs' => 'products*',
+        ],
 
         /* [
             'type' => 'route',
@@ -22,7 +37,7 @@
             'icon' => 'shopping-cart',
             'route' => 'products.index',
             'routeIs' => 'products*',
-        ],
+        ]
         
         [
             'type' => 'anchor',
@@ -118,9 +133,9 @@
                 @endif
             @endforeach
 
-            {{--  @can('admin.index')
+             @can('admin.index')
                 <flux:navbar.item icon="inbox" href="{{ route('admin.index') }}">Admin</flux:navbar.item>
-            @endcan --}}
+            @endcan 
         </flux:navbar>
 
 
@@ -193,7 +208,7 @@
         </flux:dropdown>
 
         <!-- cart -->
-        {{-- @livewire('cart-icon') --}}
+        @livewire('cart-icon')
     </flux:header>
 
     <!-- Mobile Menu -->
@@ -239,9 +254,9 @@
                         </flux:navlist.group>
                     @endif
                 @endforeach
-                {{-- @can('admin.index')
+                @can('admin.index')
                     <flux:navlist.item icon="inbox" href="{{ route('admin.index') }}">Admin</flux:navlist.item>
-                @endcan --}}
+                @endcan
             </flux:navlist.group>
         </flux:navlist>
 

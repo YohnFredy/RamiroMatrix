@@ -21,14 +21,18 @@ class DatabaseSeeder extends Seeder
         ]); */
 
          $this->call([
+            RoleSeeder::class,
             UserSeeder::class,
             MatrixTotalSeeder::class,
             CountrySeeder::class,
             DepartmentSeeder::class,
             CitySeeder::class,
-
-            RegisterSeeder::class,
+            RegisterSeeder::class, 
+            VideoSeeder::class,
         ]);
+
+        
+
 
 
     }

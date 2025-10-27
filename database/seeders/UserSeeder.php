@@ -19,13 +19,13 @@ class UserSeeder extends Seeder
             'name' => 'ramiro',
             'last_name' => 'munos',
             'dni' => 94154629,
-            'username' => 'Lider',
+            'username' => 'master',
             'email' => 'lider@gmail.com',
             'password' => bcrypt('123'),
         ]);
 
         // Asignar rol
-       /*  $superadmin->assignRole('Superadmin');  */
+       $superadmin->assignRole('Superadmin'); 
 
         // Crear su respectivo user_data
         UserData::factory()->create([

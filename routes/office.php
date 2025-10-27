@@ -8,9 +8,9 @@ use App\Livewire\Office\UnilevelTree;
 
 
 Route::get('dashboard', Dashboard::class)->name('dashboard');
-Route::get('matirx/tree', MatrixTree::class)->name('matrix-tree');
+Route::get('matirx/tree', MatrixTree::class)->name('matrix.tree');
 
-Route::get('unilevel/tree', UnilevelTree::class)->name('unilevel-tree');
+Route::get('unilevel/tree', UnilevelTree::class)->name('unilevel.tree');
 
 
 

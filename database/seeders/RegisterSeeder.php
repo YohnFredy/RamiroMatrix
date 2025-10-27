@@ -20,7 +20,7 @@ class RegisterSeeder extends Seeder
     {
 
         $faker = Faker::create();
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 10; $i++) {
 
             $user = User::create([
                 /* 'username' => strtolower($faker->unique()->userName), */

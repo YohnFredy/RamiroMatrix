@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -32,6 +33,7 @@ class Register extends Component
 
     public $recaptcha_token = '';
 
+    public bool $watchVideo = false;
     public bool $confirmingRegistration = false;
 
 
@@ -126,6 +128,20 @@ class Register extends Component
     public function save() //
     {
         $this->validate();
+        $this->watchVideo = true;
+    }
+
+
+    public function confirmationVideo()
+    {
+        $this->watchVideo = false;
+
+        $this->store(); 
+    }
+
+    public function store()
+    {
+
         // Validar reCAPTCHA
         /* if (!$this->validateRecaptcha()) {
             session()->flash('captcha', '⚠️ No se pudo verificar tu envío mediante reCAPTCHA. Esto puede ocurrir si tu conexión es inestable o si Google no pudo confirmar la seguridad del envío. Por favor, intenta nuevamente recargando la página.');
@@ -271,9 +287,9 @@ class Register extends Component
 
     public function redirectToHome()
     {
-        Auth::login($this->user);
+        $this->reset();
+        /* Auth::login($this->user); */
         Session::regenerate();
-
         return redirect('/');
     }
 

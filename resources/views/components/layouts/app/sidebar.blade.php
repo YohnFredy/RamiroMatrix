@@ -11,13 +11,13 @@
             [
                 'name' => 'Matrix',
                 'icon' => 'network',
-                'route' => 'matrix-tree',
+                'route' => 'matrix.tree',
             ],
 
              [
                 'name' => 'Unilevel',
                 'icon' => 'network',
-                'route' => 'unilevel-tree',
+                'route' => 'unilevel.tree',
             ],
             /*  [
                 'name' => 'Comisiones',

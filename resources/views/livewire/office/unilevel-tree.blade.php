@@ -127,8 +127,6 @@
                 </div>
             </div>
         </div>
-
-
         <!-- Acciones rápidas -->
         <div class="bg-white rounded-lg shadow-md shadow-base-900 hover:shadow-lg transition-shadow overflow-hidden">
             <div class="bg-base-600 p-4 border-b flex items-center">
@@ -155,7 +153,7 @@
                         <span class="text-sm">Añadir Usuario</span>
                     </a>
 
-                    <a href="{{ route('unilevel-tree') }} --}}"
+                    <a href="{{ route('matrix.tree') }}"
                         class="bg-red-50 hover:bg-base-50 text-accent-3 p-3 rounded-lg flex flex-col items-center">
                         <i class="fas fa-network-wired text-2xl mb-1"></i>
                         <span class="text-sm">Ver Matrix</span>

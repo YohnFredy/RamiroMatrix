@@ -7,8 +7,10 @@
 
     // Definimos las clases de color y efecto hover basadas en el color proporcionado
     $colorClasses = match ($color) {
-        'primary' => 'bg-primary hover:bg-secondary text-neutral-100 hover:text-white  focus:ring-secondary',
-        'white' => 'bg-neutral-200 hover:bg-white text-primary hover:text-secondary  focus:ring-neutral-200 focus:ring-offset-secondary',
+        'primary'
+            => 'bg-primary-700 hover:bg-secondary-600 text-neutral-100 hover:text-white  focus:ring-secondary-600',
+        'white'
+            => 'bg-neutral-200 hover:bg-white text-primary-700 hover:text-secondary-600  focus:ring-neutral-200 focus:ring-offset-secondary-600',
     };
 @endphp
 

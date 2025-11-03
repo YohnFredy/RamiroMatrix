@@ -20,8 +20,6 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-Route::get('register/{sponsor}', Register::class)->name('register');
-
 Route::get('videos', VideoIndex::class)->name('videos.index');
 Route::get('videos/{video}', VideoShow::class)->name('videos.show');
 

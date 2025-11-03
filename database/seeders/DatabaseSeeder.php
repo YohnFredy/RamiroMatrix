@@ -22,8 +22,9 @@ class DatabaseSeeder extends Seeder
 
          $this->call([
             RoleSeeder::class,
+            DocumentTypeSeeder::class,
             UserSeeder::class,
-            MatrixTotalSeeder::class,
+            matrixTotalSeeder::class,
             CountrySeeder::class,
             DepartmentSeeder::class,
             CitySeeder::class,

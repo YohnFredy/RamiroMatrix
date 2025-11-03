@@ -89,13 +89,13 @@
             </div>
 
 
-            <!-- Card Socios Matrix -->
+            <!-- Card Socios matrix -->
             <div
                 class="bg-white rounded-xl shadow-lg hover:shadow-xl shadow-base-900 border border-primary-600/30 transition-all duration-300 overflow-hidden">
 
                 <div class="p-6">
                     <div class=" flex items-center justify-between">
-                        <p class="text-sm font-semibold text-base-700 uppercase tracking-wider">Socios Matrix</p>
+                        <p class="text-sm font-semibold text-base-700 uppercase tracking-wider">Socios matrix</p>
                         <div class="p-3 rounded-full bg-base-700/20 text-base-700 shadow-md flex-shrink-0">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">

@@ -13,7 +13,7 @@
 
     @if (session('success'))
         <div class="bg-white my-6">
-            <div class="bg-secondary/5 border border-secondary text-primary p-4 rounded-lg relative" role="alert">
+            <div class="bg-secondary-600/5 border border-secondary-600 text-primary-700 p-4 rounded-lg relative" role="alert">
                 <strong class="font-bold">¡Éxito!</strong>
                 <span class="block sm:inline">{{ session('success') }}</span>
                 <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3"
@@ -27,11 +27,11 @@
     <!-- Encabezado de la sección -->
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mt-8 mb-4 px-6">
         <div>
-            <h1 class="text-2xl font-bold text-primary">Gestión de productos</h1>
-            <p class="text-sm text-ink mt-1">Administra tus productos</p>
+            <h1 class="text-2xl font-bold text-primary-700">Gestión de productos</h1>
+            <p class="text-sm text-base-900 mt-1">Administra tus productos</p>
         </div>
         <a href="{{ route('admin.products.create') }}"
-            class="mt-4 md:mt-0 px-5 py-2.5 bg-primary text-white rounded-lg hover:bg-secondary transition duration-200 flex items-center shadow-lg shadow-primary/20">
+            class="mt-4 md:mt-0 px-5 py-2.5 bg-primary-700 text-white rounded-lg hover:bg-secondary-600 transition duration-200 flex items-center shadow-lg shadow-primary-700/20">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd"
                     d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
@@ -42,17 +42,17 @@
     </div>
 
     <!-- Tarjeta principal -->
-    <div class="bg-white rounded-xl shadow-md shadow-ink overflow-hidden border border-neutral-300">
+    <div class="bg-white rounded-xl shadow-md shadow-base-900 overflow-hidden border border-neutral-300">
         <!-- Cabecera de la tarjeta con buscador -->
         <div class="p-5 border-b border-neutral-300 bg-white">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div class="flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary mr-2" viewBox="0 0 20 20"
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-700 mr-2" viewBox="0 0 20 20"
                         fill="currentColor">
                         <path
                             d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z" />
                     </svg>
-                    <h2 class="text-lg font-semibold text-ink">Lista de productos</h2>
+                    <h2 class="text-lg font-semibold text-base-900">Lista de productos</h2>
                 </div>
                 <!-- Buscador mejorado -->
                 <div class="relative">
@@ -65,7 +65,7 @@
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-neutral-50">
-                    <tr class="text-xs font-medium text-primary uppercase tracking-wider">
+                    <tr class="text-xs font-medium text-primary-700 uppercase tracking-wider">
                         <th scope="col" class="px-6 py-4 text-left">Id</th>
                         <th scope="col" class="px-6 py-4 text-left">Imágenes</th>
                         <th scope="col" class="px-6 py-4 text-left">Nombre</th>
@@ -97,9 +97,9 @@
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     @if ($product->is_active)
                                         <span
-                                            class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-premium/5 text-premium">
+                                            class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-accent-3/5 text-accent-3">
                                             <span class="flex items-center">
-                                                <span class="h-1.5 w-1.5 rounded-full bg-premium mr-1.5"></span>
+                                                <span class="h-1.5 w-1.5 rounded-full bg-accent-3 mr-1.5"></span>
                                                 Activo
                                             </span>
                                         </span>
@@ -118,20 +118,20 @@
 
                                         {{-- mostrar --}}
                                         <a href=""
-                                            class="text-primary hover:text-primary/80 transition-colors p-1.5 rounded-md hover:bg-primary/10">
+                                            class="text-primary-700 hover:text-primary-700/80 transition-colors p-1.5 rounded-md hover:bg-primary-700/10">
                                             <i class="far fa-eye"></i>
                                         </a>
 
                                         {{-- Editar --}}
                                         <a href="{{ route('admin.products.edit', $product) }}"
-                                            class="text-secondary hover:text-secondary/80 transition-colors p-1.5 rounded-md hover:bg-secondary/10">
+                                            class="text-secondary-600 hover:text-secondary-600/80 transition-colors p-1.5 rounded-md hover:bg-secondary-600/10">
                                             <i class="fas fa-edit"></i>
                                         </a>
 
                                         {{-- eliminar --}}
                                         <button wire:click="destroy({{ $product->id }})"
                                             wire:confirm="¿Estás seguro de eliminar el producto {{ $product->name }}?"
-                                            class="text-primary hover:text-primary/80 transition-colors px-1.5 rounded-md hover:bg-primary/10">
+                                            class="text-accent-3 hover:text-accent-3/80 transition-colors px-1.5 rounded-md hover:bg-primary-700/10">
                                             <i class="fas fa-trash-alt"></i></button>
                                     </div>
                                 </td>
@@ -141,15 +141,15 @@
                         <tr>
                             <td colspan="4" class="px-6 py-16 text-center">
                                 <div class="flex flex-col items-center">
-                                    <div class="bg-primary/10 p-5 rounded-full mb-4">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-primary"
+                                    <div class="bg-primary-700/10 p-5 rounded-full mb-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-primary-700"
                                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                                         </svg>
                                     </div>
-                                    <p class="text-primary font-medium mb-1">No se encontraron productos</p>
-                                    <p class="text-ink text-sm">No hay productos disponibles para mostrar</p>
+                                    <p class="text-primary-700 font-medium mb-1">No se encontraron productos</p>
+                                    <p class="text-base-900 text-sm">No hay productos disponibles para mostrar</p>
                                     @if (!empty($this->searchTerms))
                                         <flux:button wire:click="clearSearch" class=" mt-4">
                                             Limpiar búsqueda

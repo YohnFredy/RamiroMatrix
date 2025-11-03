@@ -128,7 +128,7 @@
 
                 @if ($hasChildCategories === false)
                     <div class="col-span-6">
-                        <p class="text-sm text-red-600">
+                        <p class="text-sm text-accent-3">
                             <i class="fas fa-exclamation-triangle mr-1"></i>
                             La categoría seleccionada tiene subcategorías. Por favor, seleccione una categoría del
                             último nivel.
@@ -150,7 +150,7 @@
                         {{-- CORRECCIÓN: Iterar sobre el array asociativo [id => path] --}}
                         @foreach ($images as $id => $path)
                             <div
-                                class="relative bg-white shadow-md shadow-palette-300  border border-palette-200  rounded-lg flex items-center justify-center p-2">
+                                class="relative bg-white shadow-md shadow-base-900  border border-palette-200  rounded-lg flex items-center justify-center p-2">
                                 <div class="">
                                     <img src="{{ Storage::url($path) }}" class="h-20 object-cover"
                                         alt="Imagen del Negocio">
@@ -158,7 +158,7 @@
                                     {{-- CORRECCIÓN: Llamar al nuevo método con el ID y una confirmación --}}
                                     <button type="button" wire:click="removeMedia({{ $id }})"
                                         wire:confirm="¿Estás seguro de eliminar esta imagen?"
-                                        class=" absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs">
+                                        class=" absolute top-1 right-1 bg-accent-3 text-white rounded-full w-6 h-6 flex items-center justify-center font-bold text-xs">
                                         X
                                     </button>
                                 </div>
@@ -169,7 +169,7 @@
             @endif
 
             <div class=" flex items-center justify-end mt-4">
-                <a class=" mr-4 text-xl font-bold text-palette-400 hover:text-opacity-80"
+                <a class=" mr-4 text-xl font-bold text-base-600 hover:text-opacity-80"
                     href="{{ route('admin.products.index') }}"> <i class="fas fa-arrow-left"></i></a>
 
                 <x-button-dynamic type="submit" wire:loading.attr="disabled" wire:target="save,update">

@@ -12,9 +12,13 @@ use App\Livewire\Admin\Categories\CategoryIndex;
 use App\Livewire\Admin\Orders\OrdersManagement;
 use App\Livewire\Admin\Products\ProductForm;
 use App\Livewire\Admin\Products\ProductIndex;
+use App\Livewire\Admin\Sales\SalesForm;
+use App\Livewire\Admin\Sales\SalesIndex;
 use App\Livewire\Admin\SendWhatsapp;
 use App\Livewire\Admin\Users\UserForm;
 use App\Livewire\Admin\Users\UserIndex;
+use App\Livewire\Admin\Videos\VideoForm;
+use App\Livewire\Admin\Videos\VideoIndex;
 use Illuminate\Support\Facades\Route;
 
 
@@ -50,4 +54,17 @@ Route::middleware(['auth'])->group(function () {
   Route::get('Product', ProductIndex::class)->name('products.index');
   Route::get('product/create', ProductForm::class)->name('products.create');
   Route::get('product/{product}/edit', ProductForm::class)->name('products.edit');
+
+
+  Route::get('video', VideoIndex::class)->name('videos.index');
+  Route::get('video/create', VideoForm::class)->name('videos.create');
+  Route::get('video/{video}/edit', VideoForm::class)->name('videos.edit');
+
+  Route::get('business', BusinessIndex::class)->name('businesses.index');
+  Route::get('business/create', BusinessForm::class)->name('businesses.create');
+  Route::get('business/{business}/edit', BusinessForm::class)->name('businesses.edit');
+
+  Route::get('/sales', SalesIndex::class)->name('sales.index');
+  Route::get('/sales/create', SalesForm::class)->name('sales.create');
+  Route::get('/sales/{sale}/edit', SalesForm::class)->name('sales.edit');
 });

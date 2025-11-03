@@ -27,7 +27,9 @@ class RoleSeeder extends Seeder
         $this->createUserPermissions([$superadmin, $admin]);
         $this->createCategoryPermissions([$superadmin, $admin]);
         $this->createBrandPermissions([$superadmin, $admin]);
+        $this->createVideosPermissions([$superadmin, $admin]);
         $this->createProductsPermissions([$superadmin, $admin]);
+        $this->createBusinessPermissions([$superadmin, $admin]);
         $this->createRolesPermissions([$superadmin]);
     }
 
@@ -67,7 +69,15 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'admin.products.destroy', 'description' => 'Eliminar Producto'])->syncRoles($roles);
     }
 
-    
+     private function createVideosPermissions($roles)
+    {
+        Permission::create(['name' => 'admin.videos.index',   'description' => 'Ver lista de Videos'])->syncRoles($roles);
+        Permission::create(['name' => 'admin.videos.create',  'description' => 'Crear Videos'])->syncRoles($roles);
+        Permission::create(['name' => 'admin.videos.show',    'description' => 'Mostrar Videos'])->syncRoles($roles);
+        Permission::create(['name' => 'admin.videos.edit',    'description' => 'Editar Videos'])->syncRoles($roles);
+        Permission::create(['name' => 'admin.videos.destroy', 'description' => 'Eliminar Videos'])->syncRoles($roles);
+    }
+
     private function createRolesPermissions($roles)
     {
         // Roles
@@ -76,5 +86,14 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'admin.roles.show',    'description' => 'Mostrar Rol'])->syncRoles($roles);
         Permission::create(['name' => 'admin.roles.edit',    'description' => 'Editar Rol'])->syncRoles($roles);
         Permission::create(['name' => 'admin.roles.destroy', 'description' => 'Eliminar Rol'])->syncRoles($roles);
+    }
+
+     private function createBusinessPermissions($roles)
+    {
+        Permission::create(['name' => 'admin.businesses.index',   'description' => 'Ver lista de Negocios'])->syncRoles($roles);
+        Permission::create(['name' => 'admin.businesses.create',  'description' => 'Crear Negocio'])->syncRoles($roles);
+        Permission::create(['name' => 'admin.businesses.show',    'description' => 'Mostrar Negocio'])->syncRoles($roles);
+        Permission::create(['name' => 'admin.businesses.edit',    'description' => 'Editar Negocio'])->syncRoles($roles);
+        Permission::create(['name' => 'admin.businesses.destroy', 'description' => 'Eliminar Negocio'])->syncRoles($roles);
     }
 }

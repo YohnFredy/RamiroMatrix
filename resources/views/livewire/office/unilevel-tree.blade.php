@@ -156,7 +156,7 @@
                     <a href="{{ route('matrix.tree') }}"
                         class="bg-red-50 hover:bg-base-50 text-accent-3 p-3 rounded-lg flex flex-col items-center">
                         <i class="fas fa-network-wired text-2xl mb-1"></i>
-                        <span class="text-sm">Ver Matrix</span>
+                        <span class="text-sm">Ver matrix</span>
                     </a>
                 </div>
             </div>

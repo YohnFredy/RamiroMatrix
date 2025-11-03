@@ -83,16 +83,22 @@ class User extends Authenticatable
 
     public function matrix(): HasOne
     {
-        return $this->hasOne(ForcedMatrix::class);
+        return $this->hasOne(Forcedmatrix::class);
     }
 
     public function matrixTotal(): HasOne
     {
-        return $this->hasOne(MatrixTotal::class);
+        return $this->hasOne(matrixTotal::class);
     }
 
     public function matirxPoint(): HasOne
     {
-        return $this->hasOne(MatrixPoint::class);
+        return $this->hasOne(matrixPoint::class);
     }
+
+    public function activation()
+    {
+        return $this->hasOne(UserActivation::class);
+    }
+
 }

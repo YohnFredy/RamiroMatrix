@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Office;
 
-use App\Models\ForcedMatrix;
+use App\Models\Forcedmatrix;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
@@ -63,10 +63,10 @@ class UnilevelTree extends Component
 
      private function getChildrenBranches(int $parentId, int $currentLevel): array
     {
-        return ForcedMatrix::where('sponsor_id', $parentId)
+        return Forcedmatrix::where('sponsor_id', $parentId)
             ->with(['user.matrixTotal'])
             ->get()
-            ->map(fn(ForcedMatrix $child) => $this->buildTree($child->user, $currentLevel + 1))
+            ->map(fn(Forcedmatrix $child) => $this->buildTree($child->user, $currentLevel + 1))
             ->toArray();
     }
 

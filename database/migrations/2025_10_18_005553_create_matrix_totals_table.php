@@ -21,7 +21,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('two_levels_total_affiliates')->default(0);
 
             $table->unsignedSmallInteger('direct_affiliates')->default(0); // Directos del auspiciador
-            $table->unsignedInteger('total_affiliates')->default(0);  // Total Matrix
+            $table->unsignedInteger('total_affiliates')->default(0);  // Total matrix
 
             $table->unsignedInteger('total_unilevel')->default(0);  // Total en Unilevel
 

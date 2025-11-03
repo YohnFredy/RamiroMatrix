@@ -347,7 +347,7 @@
                                 </p>
                                 <p>
                                     <i class="fas fa-user-tie text-primary-700 mr-2"></i>
-                                    <strong>Titular:</strong> MATRIX
+                                    <strong>Titular:</strong> matrix
                                 </p>
                                 {{-- <p>
                                     <i class="fas fa-id-card text-primary-700 mr-2"></i>

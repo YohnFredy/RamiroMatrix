@@ -1,4 +1,4 @@
-<x-layouts.app title="Matrix">
+<x-layouts.app title="matrix">
     <!-- VIDEO EXPLICATIVO -->
 
     <section
@@ -14,20 +14,31 @@
                 </p>
             </header>
 
-            <!-- Contenedor del video -->
-            <div class="relative mx-auto max-w-3xl rounded-2xl overflow-hidden shadow-2xl bg-black">
-                <div class="aspect-video">
-                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Sistema Matrix Colombia"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen class="w-full h-full">
-                    </iframe>
-                </div>
-            </div>
+
+            @php
+    $video = \App\Models\Video::find(1);
+@endphp
+
+@if ($video)
+    <div class="relative mx-auto max-w-3xl rounded-2xl overflow-hidden shadow-2xl bg-black">
+        <div class="aspect-video">
+            <iframe 
+                src="https://www.youtube.com/embed/{{ $video->youtube_url }}" 
+                title="Sistema matrix Colombia"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen 
+                class="w-full h-full">
+            </iframe>
+        </div>
+    </div>
+@else
+    <p class="text-red-500 text-center">Video no encontrado</p>
+@endif
         </div>
     </section>
 
-    <!-- SECCIÓN: SISTEMA MATRIX COLOMBIA -->
+    <!-- SECCIÓN: SISTEMA matrix COLOMBIA -->
     <section class="w-full bg-white py-8 sm:py-20 px-4 sm:px-6 lg:px-8 overflow-x-hidden">
         <div class="max-w-6xl mx-auto">
             <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -35,7 +46,7 @@
                 <!-- Texto descriptivo -->
                 <div class="space-y-6">
                     <h2 class="text-3xl sm:text-4xl font-extrabold text-base-900 leading-tight">
-                        Sistema Matrix Colombia
+                        Sistema matrix Colombia
                     </h2>
                     <p class="text-base sm:text-lg text-base-700 leading-relaxed">
                         Es un sistema cuyo objeto primordial es crear programas, ideas, inventos y estrategias que
@@ -52,7 +63,7 @@
 
                     <!-- Botones -->
                     <div class="flex flex-col sm:flex-row gap-4 pt-2">
-                        <a href="{{ route('register', 'master')}}"
+                        <a href="{{ route('register', 'master') }}"
                             class="inline-block text-center bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-8 rounded-xl transition duration-300 shadow-lg">
                             Registrarse Ahora
                         </a>
@@ -476,7 +487,7 @@
                         <h3 class="text-2xl font-bold text-base-900">Misión</h3>
                     </div>
                     <p class="text-base-700 leading-relaxed">
-                        El sistema Matrix tiene como misión generar conciencia en todos los registrados sobre el cuidado
+                        El sistema matrix tiene como misión generar conciencia en todos los registrados sobre el cuidado
                         del medio ambiente al tiempo que cuidan de su salud. Se enfoca en crear programas, ideas,
                         inventos y estrategias para fortalecer la mejora constante del mundo donde respiramos y el
                         cuerpo que habitamos.
@@ -499,7 +510,7 @@
                         <h3 class="text-2xl font-bold text-base-900">Visión</h3>
                     </div>
                     <p class="text-base-700 leading-relaxed">
-                        El sistema Matrix tiene la visión que al año 2030 se habrán registrado un millón de usuarios,
+                        El sistema matrix tiene la visión que al año 2030 se habrán registrado un millón de usuarios,
                         los cuales serán educados en el cuidado del medio ambiente y su salud, ingresándolos a programas
                         y estrategias que facilitarán el mejoramiento de nuestro mundo y nuestro cuerpo.
                     </p>
@@ -522,7 +533,7 @@
                 oportunidades.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="{{ route('register', 'master')}}" target="_blank" rel="noopener noreferrer"
+                <a href="{{ route('register', 'master') }}" target="_blank" rel="noopener noreferrer"
                     class="inline-block bg-white hover:bg-slate-100 text-primary-600 font-bold py-4 px-10 rounded-lg transition duration-300 shadow-xl hover:scale-[1.03]">
                     Registrarse Gratis Ahora
                 </a>
@@ -662,7 +673,7 @@
                 Ir a matrix-colombia.web.app
             </a>
             <p class="text-slate-400 mt-8 text-sm">
-                © 2025 Sistema Matrix Colombia. Todos los derechos reservados.
+                © 2025 Sistema matrix Colombia. Todos los derechos reservados.
             </p>
         </div>
     </div>

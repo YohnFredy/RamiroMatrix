@@ -17,6 +17,7 @@ return new class extends Migration
             $table->enum('sex', ['male', 'female', 'other'])->nullable();
             $table->date('birthdate');
             $table->string('phone');
+            $table->string('whatsApp')->nullable();
             $table->integer('country_id');
             $table->integer('department_id')->nullable();
             $table->integer('city_id')->nullable();

@@ -5,7 +5,7 @@
 <div>
     <div class="flex justify-between items-center mb-2">
         <h1 class="font-bold text-xl md:text-2xl text-primary-700 flex items-center">
-            <i class="fas fa-diagram-project mr-2"></i> Red Matrix
+            <i class="fas fa-diagram-project mr-2"></i> Red matrix
         </h1>
     </div>
 

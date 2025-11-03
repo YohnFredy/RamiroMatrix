@@ -24,6 +24,7 @@ class UserDataFactory extends Factory
             'sex' => $this->faker->randomElement(['male', 'female', 'other']),
             'birthdate' => $this->faker->dateTimeBetween('-60 years', '-18 years')->format('Y-m-d'),
             'phone' => $this->faker->phoneNumber(),
+            'whatsApp' => $this->faker->phoneNumber(),
             'country_id' => $this->faker->numberBetween(1, 5),
             'department_id' => $this->faker->numberBetween(1, 20),
             'city_id' => $this->faker->numberBetween(1, 100),

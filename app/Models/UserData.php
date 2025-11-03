@@ -15,6 +15,7 @@ class UserData extends Model
         'sex',
         'birthdate',
         'phone',
+        'whatsApp',
         'country_id',
         'department_id',
         'city_id',

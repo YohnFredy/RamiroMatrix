@@ -12,7 +12,7 @@
         <span class=" text-base-600">Y el</span>
         <flux:modal.trigger name="contract-modal">
             <span class="font-medium text-secondary-600 hover:underline cursor-pointer ml-1">
-                Contrato de Afiliación como Distribuidor Independiente de Matrix,
+                Contrato de Afiliación como Distribuidor Independiente de matrix,
             </span>
         </flux:modal.trigger>
         <span class=" text-base-600">los cuales he leído previamente y entiendo en su totalidad.</span>
@@ -32,7 +32,7 @@
     {{-- Título del modal mejorado --}}
     <div class="border-b border-gray-200 pb-4 mb-4">
         <h1 class="text-xl text-primary font-bold text-center">
-            TÉRMINOS Y CONDICIONES GENERALES DE MATRIX.
+            TÉRMINOS Y CONDICIONES GENERALES DE matrix.
         </h1>
         <p class="text-center text-sm text-gray-500 mt-1">
             Uso del Sitio Web y Proceso de Registro en Línea
@@ -46,7 +46,7 @@
             1. ACEPTACIÓN E INFORMACIÓN GENERAL
         </h2>
         <p>
-            Bienvenido a la plataforma en línea de <b>Matrix.</b> (en adelante, “LA COMPAÑÍA”).
+            Bienvenido a la plataforma en línea de <b>matrix.</b> (en adelante, “LA COMPAÑÍA”).
         </p>
         <p>
             Estos Términos y Condiciones Generales (en adelante, "T&C") regulan el acceso, la navegación y el uso del
@@ -199,7 +199,7 @@
             CONTRATO DE VINCULACIÓN COMERCIAL PARA DISTRIBUIDOR INDEPENDIENTE
         </h1>
         <p class="text-center text-sm text-gray-500 mt-1">
-            Entre Matrix. y EL DISTRIBUIDOR INDEPENDIENTE
+            Entre matrix. y EL DISTRIBUIDOR INDEPENDIENTE
         </p>
     </div>
 

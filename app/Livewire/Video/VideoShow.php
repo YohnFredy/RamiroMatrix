@@ -96,7 +96,7 @@ class VideoShow extends Component
         }
 
         $percentageWatched = ($view->video_total_watch_time / $view->video_duration) * 100;
-        $completionThreshold = 95;
+        $completionThreshold = 89;
 
         if ($percentageWatched >= $completionThreshold) {
             if (!$view->video_completed) {

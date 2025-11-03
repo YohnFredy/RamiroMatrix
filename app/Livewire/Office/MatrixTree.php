@@ -2,13 +2,13 @@
 
 namespace App\Livewire\Office;
 
-use App\Models\ForcedMatrix;
+use App\Models\Forcedmatrix;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-class MatrixTree extends Component
+class matrixTree extends Component
 {
     public array $tree;
     public User $currentUser;
@@ -63,10 +63,10 @@ class MatrixTree extends Component
 
      private function getChildrenBranches(int $parentId, int $currentLevel): array
     {
-        return ForcedMatrix::where('placement_id', $parentId)
+        return Forcedmatrix::where('placement_id', $parentId)
             ->with(['user.matrixTotal'])
             ->get()
-            ->map(fn(ForcedMatrix $child) => $this->buildTree($child->user, $currentLevel + 1))
+            ->map(fn(Forcedmatrix $child) => $this->buildTree($child->user, $currentLevel + 1))
             ->toArray();
     }
 

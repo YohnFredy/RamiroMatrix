@@ -5,10 +5,10 @@ namespace App\Livewire;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Department;
-use App\Models\ForcedMatrix;
-use App\Models\MatrixTotal;
+use App\Models\Forcedmatrix;
+use App\Models\matrixTotal;
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
+use App\Models\Video;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
-use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -27,15 +26,13 @@ class Register extends Component
 
     #[Validate()]
     public $user, $username, $name, $last_name, $dni, $email, $password, $password_confirmation;
-    public $sex, $birthdate, $phone, $country_id, $department_id, $city_id, $address, $terms = false;
+    public $sex, $birthdate, $phone, $whatsApp, $country_id, $department_id, $city_id, $address, $terms = false;
     public $countries = [], $departments = [], $cities = [];
     public $selectedCountry = '', $selectedDepartment = '', $selectedCity = '',  $city = '';
 
-    public $recaptcha_token = '';
-
+    public $video;
     public bool $watchVideo = false;
     public bool $confirmingRegistration = false;
-
 
     protected function rules()
     {
@@ -68,6 +65,8 @@ class Register extends Component
             $this->sponsor = $sponsor;
         }
 
+        $this->video = Video::find(2)->youtube_url;
+
         $this->countries = Country::all();
     }
 
@@ -98,57 +97,30 @@ class Register extends Component
         $this->reset('city_id');
     }
 
-    private function validateRecaptcha()
-    {
-        if (empty($this->recaptcha_token)) {
-            return false;
-        }
-        try {
-            $response = Http::asForm()->timeout(15)->post('https://www.google.com/recaptcha/api/siteverify', [
-                'secret' => config('services.recaptcha.secret'),
-                'response' => $this->recaptcha_token,
-                'remoteip' => request()->ip()
-            ]);
-
-            $result = $response->json();
-
-            // Verificar que la respuesta sea exitosa y el score sea aceptable
-            return $result['success'] &&
-                isset($result['score']) &&
-                $result['score'] >= 0.5 && // Score mínimo para registro
-                $result['action'] === 'user_register'; // Acción específica para registro
-
-        } catch (\Exception $e) {
-            // Log del error para debugging
-            Log::error('reCAPTCHA validation error: ' . $e->getMessage());
-            return false;
-        }
-    }
-
     public function save() //
     {
         $this->validate();
         $this->watchVideo = true;
     }
 
-
     public function confirmationVideo()
     {
         $this->watchVideo = false;
-
-        $this->store(); 
+        $this->store();
     }
 
     public function store()
     {
+        $this->user = $this->createUserWithDataAndLogConsent();
 
-        // Validar reCAPTCHA
-        /* if (!$this->validateRecaptcha()) {
-            session()->flash('captcha', '⚠️ No se pudo verificar tu envío mediante reCAPTCHA. Esto puede ocurrir si tu conexión es inestable o si Google no pudo confirmar la seguridad del envío. Por favor, intenta nuevamente recargando la página.');
-            return;
-        } */
+        // El resto de la lógica de negocio MLM
+        $sponsor = User::where('username', $this->sponsor)->firstOrFail();
 
-        try {
+        $this->matrix($this->user->id, $sponsor->id);
+
+        $this->confirmingRegistration = true;
+
+        /*    try {
             DB::transaction(function () { // 
                 // La creación del usuario y sus datos se encapsulan en un solo método para más limpieza
                 $this->user = $this->createUserWithDataAndLogConsent();
@@ -168,7 +140,7 @@ class Register extends Component
                 'data' => $this->all() // Cuidado con datos sensibles en logs
             ]);
             $this->addError('registration', 'Ocurrió un error inesperado al procesar tu registro. Por favor, intenta de nuevo.');
-        }
+        } */
     }
 
     private function createUserWithDataAndLogConsent()
@@ -188,6 +160,7 @@ class Register extends Component
             'sex' => $this->sex,
             'birthdate' => $this->birthdate,
             'phone' => $this->phone,
+            'whatsApp' => $this->whatsApp,
             'country_id' => $this->country_id,
             'department_id' => $this->department_id,
             'city_id' => $this->city_id,
@@ -195,17 +168,7 @@ class Register extends Component
             'address' => $this->address,
         ]);
 
-        // 3. Crear el registro de consentimiento (La parte clave)
-        /* $user->consentLogs()->create([
-            'contract_version_accepted'       => config('legal.contract_version'),
-            'privacy_policy_version_accepted' => config('legal.privacy_version'),
-            'accepted_at'                     => now(),
-            'ip_address'                      => request()->ip(),
-            'user_agent'                      => request()->userAgent(),
-            'checkbox_text'                   => config('legal.checkbox_text'), // <--- Mucho mejor así
-        ]); */
-
-        MatrixTotal::create([
+        matrixTotal::create([
             'user_id' =>  $user->id,
         ]);
 
@@ -214,14 +177,14 @@ class Register extends Component
 
     public function matrix($userId, $sponsorId)
     {
-        $placement = MatrixTotal::where('status', 'active')
+        $placement = matrixTotal::where('status', 'active')
             ->where('current_affiliates', '<', 3)
             ->orderBy('user_id')
             ->lockForUpdate() // 🔒 evita que dos procesos tomen el mismo placement
             ->firstOrFail();
 
         // Crear el registro en la matriz forzada
-        ForcedMatrix::create([
+        Forcedmatrix::create([
             'user_id' => $userId,
             'placement_id' => $placement->user_id,
             'sponsor_id' => $sponsorId,
@@ -237,16 +200,15 @@ class Register extends Component
             'status' => $newAffiliates >= 3 ? 'full' : 'active',
         ]);
 
-        $sponsor =  MatrixTotal::where('user_id', $sponsorId)->first();
+        $sponsor =  matrixTotal::where('user_id', $sponsorId)->first();
         $sponsor->increment('direct_affiliates');
-
 
         $sponsorId = $placement->user_id;
 
         $nivel2 = 0;
-        while ($matrix = ForcedMatrix::where('user_id', $sponsorId)->first()) {
+        while ($matrix = Forcedmatrix::where('user_id', $sponsorId)->first()) {
 
-            $matrixTotal = MatrixTotal::where('user_id', $matrix->placement_id)
+            $matrixTotal = matrixTotal::where('user_id', $matrix->placement_id)
                 ->lockForUpdate()
                 ->first();
 
@@ -267,9 +229,9 @@ class Register extends Component
         }
 
         $sponsorId = $userId;
-        while ($matrix = ForcedMatrix::where('user_id', $sponsorId)->first()) {
+        while ($matrix = Forcedmatrix::where('user_id', $sponsorId)->first()) {
 
-            $matrixTotal = MatrixTotal::where('user_id', $matrix->sponsor_id)
+            $matrixTotal = matrixTotal::where('user_id', $matrix->sponsor_id)
                 ->lockForUpdate()
                 ->first();
 
@@ -287,10 +249,9 @@ class Register extends Component
 
     public function redirectToHome()
     {
-        $this->reset();
-        /* Auth::login($this->user); */
+        Auth::login($this->user);
         Session::regenerate();
-        return redirect('/');
+        $this->redirectIntended(route('home', absolute: false), navigate: true);
     }
 
 

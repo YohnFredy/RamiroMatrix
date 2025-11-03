@@ -1,9 +1,6 @@
 <div class="flex flex-col gap-6">
     <x-auth-header title="Crear una cuenta" description="Ingresa tus datos a continuación para crear tu cuenta" />
 
-    <!-- Session Status -->
-    <x-auth-session-status class="text-center" :status="session('status')" />
-
     <form method="POST" wire:submit="save">
 
         <div class="grid grid-cols-2 gap-x-3">
@@ -52,9 +49,14 @@
                 </div>
             </div>
 
-            <!-- Teléfono -->
+           <!-- Teléfono -->
             <div class="col-span-2 sm:col-span-1">
                 <x-input wire:model.live="phone" label="Teléfono:" type="text" for="phone" placeholder="Teléfono"
+                    required />
+            </div>
+
+            <div class="col-span-2 sm:col-span-1">
+                <x-input wire:model.live="whatsApp" label="WhatsApp:" type="text" for="whatsApp" placeholder="WhatsApp"
                     required />
             </div>
 
@@ -151,75 +153,81 @@
         ¿Ya tienes una cuenta?
         <flux:link class="ml-1" href="{{ route('login') }}" wire:navigate> Iniciar sesión</flux:link>
     </div>
-<flux:modal wire:model.live="watchVideo" :closable="false" :dismissible="false" class="md:w-2xl">
-    <div class="space-y-6">
-        <div>
-            <flux:heading class=" text-base-800!" size="lg"> Para completar tu registro, es necesario que
-                veas
-                el siguiente video hasta el final sin salir de esta página.</flux:heading>
-            <flux:subheading class=" text-base-600!">✅ Una vez finalice el video, tu registro se generará
-                automáticamente.
-                ⚠️ Si abandonas la página antes de que termine, el registro no se completará.</flux:subheading>
-        </div>
 
-        {{-- CONTENEDOR DEL VIDEO --}}
-        <div wire:ignore class="relative w-full group" style="padding-bottom: 56.25%;">
-            {{-- REPRODUCTOR --}}
-            <div id="player" class="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"></div>
+    <flux:modal wire:model.live="watchVideo" :closable="false" :dismissible="false" class="md:w-2xl">
+        <div class="space-y-6">
+            <div>
+                <flux:heading class=" text-base-800!" size="lg"> Para completar tu registro, es necesario que
+                    veas
+                    el siguiente video hasta el final sin salir de esta página.</flux:heading>
+                <flux:subheading class=" text-base-600!">✅ Una vez finalice el video, tu registro se generará
+                    automáticamente.
+                    ⚠️ Si abandonas la página antes de que termine, el registro no se completará.</flux:subheading>
+            </div>
 
-            {{-- CONTROLES PERSONALIZADOS --}}
-            <div id="custom-controls"
-                class="absolute bottom-0 left-0 w-full flex items-center gap-4 p-2 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            {{-- CONTENEDOR DEL VIDEO --}}
+            <div wire:ignore class="relative w-full group" style="padding-bottom: 56.25%;">
+                {{-- REPRODUCTOR --}}
+                <div id="player" data-video-id="{{ $video }}"
+                    class="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"></div>
 
-                <!-- Botón Play/Pausa -->
-                <button id="play-pause-btn" class="text-white">
-                    <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                </button>
+                {{-- CONTROLES PERSONALIZADOS --}}
+                <div id="custom-controls"
+                    class="absolute bottom-0 left-0 w-full flex items-center gap-4 p-2 bg-black bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
 
-                <!-- Barra de Progreso (Interactiva) -->
-                <div id="progress-container" class="flex-grow h-2 bg-gray-500 rounded cursor-pointer">
-                    <div id="progress-bar" class="h-full bg-blue-600 rounded" style="width: 0%;"></div>
+                    <!-- Botón Play/Pausa -->
+                    <button id="play-pause-btn" class="text-white">
+                        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </button>
+
+                    <!-- Barra de Progreso (Interactiva) -->
+                    <div id="progress-container" class="flex-grow h-2 bg-gray-500 rounded cursor-pointer">
+                        <div id="progress-bar" class="h-full bg-blue-600 rounded" style="width: 0%;"></div>
+                    </div>
+
+                    <!-- Controles de Volumen -->
+                    <div class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                        </svg>
+                        <input id="volume-slider" type="range" min="0" max="100" value="100"
+                            class="w-20 h-1 accent-blue-500">
+                    </div>
+
+
+                    <!-- Botón Pantalla Completa -->
+                    <button id="fullscreen-btn" class="text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 0h-4m4 0l-5-5" />
+                        </svg>
+                    </button>
+
                 </div>
+            </div>
 
-                 <!-- Controles de Volumen -->
-                <div class="flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-                    </svg>
-                    <input id="volume-slider" type="range" min="0" max="100" value="100" class="w-20 h-1 accent-blue-500">
-                </div>
-
-
-                <!-- Botón Pantalla Completa -->
-                <button id="fullscreen-btn" class="text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 0h-4m4 0l-5-5" />
-                    </svg>
-                </button>
-
+            <div id="success-message" class="hidden text-green-600 font-bold mt-4 text-center">
+                ✅ Registro completado
             </div>
         </div>
+    </flux:modal>
 
-        <div id="success-message" class="hidden text-green-600 font-bold mt-4 text-center">
-            ✅ Registro completado
-        </div>
-    </div>
-</flux:modal>
-
-    <flux:modal wire:model.live="confirmingRegistration" :closable="false" :dismissible="false" class="md:w-3xl">
+    <flux:modal wire:model.live="confirmingRegistration" :closable="false" :dismissible="false"
+        class="md:w-3xl">
         <div class="space-y-6">
             <div>
                 <flux:heading class=" text-primary!" size="lg">Confirmación de Registro</flux:heading>
@@ -245,7 +253,8 @@
                 <flux:spacer />
 
                 <div class=" space-x-2">
-                    <flux:button class=" cursor-pointer" variant="primary" wire:click="redirectToHome" type="submit" variant="primary">
+                    <flux:button class=" cursor-pointer" variant="primary" wire:click="redirectToHome"
+                        type="button" variant="primary">
                         Inicio</flux:button>
 
                     {{--   <flux:button x-on:click="$wire.confirmingRegistration = false">Cerrar</flux:button> --}}
@@ -254,188 +263,141 @@
         </div>
     </flux:modal>
 
-    {{-- @push('js')
-        <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.key') }}"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const form = document.querySelector('form');
-                const registerBtn = document.getElementById('register-btn');
+    <script>
+        let player;
+        let hasEnded = false;
+        let userHasInteracted = false; // Nueva variable para controlar la primera interacción
 
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
+        document.addEventListener("DOMContentLoaded", function() {
+            // Cargar API YouTube
+            let tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            let firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        });
 
-                    // Verificar que no esté ya procesando
-                    if (registerBtn.disabled) {
-                        return;
-                    }
+        function onYouTubeIframeAPIReady() {
 
-                    // Deshabilitar botón temporalmente
-                    registerBtn.disabled = true;
-
-                    grecaptcha.ready(function() {
-                        grecaptcha.execute('{{ config('services.recaptcha.key') }}', {
-                            action: 'user_register'
-                        }).then(function(token) {
-                            // Asignar el token al componente Livewire
-                            @this.set('recaptcha_token', token);
-
-                            // Ejecutar el método save
-                            @this.save().then(function() {
-                                // El botón se rehabilitará automáticamente por Livewire
-                            }).catch(function(error) {
-                                registerBtn.disabled = false;
-                                console.error('Error en registro:', error);
-                            });
-
-                        }).catch(function(error) {
-                            console.error('Error reCAPTCHA:', error);
-                            registerBtn.disabled = false;
-                            alert('Error de verificación. Por favor, intenta nuevamente.');
-                        });
-                    });
-                });
-
-                // Rehabilitar botón si hay errores de validación
-                Livewire.on('validation-errors', function() {
-                    registerBtn.disabled = false;
-                });
+            const playerElement = document.getElementById('player');
+            const videoId = playerElement.getAttribute('data-video-id');
+            player = new YT.Player('player', {
+                videoId: videoId, // 👈 Cambia tu ID si subes otro video
+                playerVars: {
+                    autoplay: 0, // ❌ NO se reproduce automáticamente
+                    controls: 0, // ❌ SIN controles de YouTube
+                    rel: 0,
+                    modestbranding: 1,
+                    disablekb: 1
+                },
+                events: {
+                    onStateChange: onPlayerStateChange,
+                    onReady: onPlayerReady
+                }
             });
-        </script>
-    @endpush --}}
+        }
 
-  fhD_xVcJSHY
- <script>
-    let player;
-    let hasEnded = false;
-    let userHasInteracted = false; // Nueva variable para controlar la primera interacción
+        function onPlayerReady(event) {
+            const playerElement = event.target.getIframe();
 
-    document.addEventListener("DOMContentLoaded", function () {
-        // Cargar API YouTube
-        let tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        let firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    });
-
-    function onYouTubeIframeAPIReady() {
-        player = new YT.Player('player', {
-            videoId: 'fhD_xVcJSHY', // 👈 Cambia tu ID si subes otro video
-            playerVars: {
-                autoplay: 0, // ❌ NO se reproduce automáticamente
-                controls: 0, // ❌ SIN controles de YouTube
-                rel: 0,
-                modestbranding: 1,
-                disablekb: 1
-            },
-            events: {
-                onStateChange: onPlayerStateChange,
-                onReady: onPlayerReady
-            }
-        });
-    }
-
-    function onPlayerReady(event) {
-        const playerElement = event.target.getIframe();
-
-        // Referencias a los controles personalizados
-        const playPauseBtn = document.getElementById('play-pause-btn');
-        const playIcon = document.getElementById('play-icon');
-        const pauseIcon = document.getElementById('pause-icon');
-        const progressContainer = document.getElementById('progress-container');
-        const progressBar = document.getElementById('progress-bar');
-        const volumeSlider = document.getElementById('volume-slider');
-        const fullscreenBtn = document.getElementById('fullscreen-btn');
+            // Referencias a los controles personalizados
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            const playIcon = document.getElementById('play-icon');
+            const pauseIcon = document.getElementById('pause-icon');
+            const progressContainer = document.getElementById('progress-container');
+            const progressBar = document.getElementById('progress-bar');
+            const volumeSlider = document.getElementById('volume-slider');
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
 
 
-        // --- LÓGICA DE CONTROLES ---
+            // --- LÓGICA DE CONTROLES ---
 
-        // 1. Botón Play/Pausa
-        playPauseBtn.addEventListener('click', () => {
-            const playerState = player.getPlayerState();
-            if (playerState === YT.PlayerState.PLAYING) {
-                player.pauseVideo();
-            } else {
-                player.playVideo();
-            }
-        });
+            // 1. Botón Play/Pausa
+            playPauseBtn.addEventListener('click', () => {
+                const playerState = player.getPlayerState();
+                if (playerState === YT.PlayerState.PLAYING) {
+                    player.pauseVideo();
+                } else {
+                    player.playVideo();
+                }
+            });
 
-        // 2. Control de Volumen
-        volumeSlider.addEventListener('input', (e) => {
-            player.setVolume(e.target.value);
-        });
+            // 2. Control de Volumen
+            volumeSlider.addEventListener('input', (e) => {
+                player.setVolume(e.target.value);
+            });
 
-        // 3. Botón Pantalla Completa
-        fullscreenBtn.addEventListener('click', () => {
-            playerElement.requestFullscreen();
-        });
-        
-        // 4. Barra de Progreso (Lógica para NO adelantar)
-        progressContainer.addEventListener('click', (e) => {
-            const rect = progressContainer.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const clickedPercent = (x / progressContainer.offsetWidth);
-            const duration = player.getDuration();
-            const currentTime = player.getCurrentTime();
-            
-            const targetTime = duration * clickedPercent;
+            // 3. Botón Pantalla Completa
+            fullscreenBtn.addEventListener('click', () => {
+                playerElement.requestFullscreen();
+            });
 
-            // ✅ SOLO permite buscar si el tiempo es ANTERIOR al actual
-            if (targetTime < currentTime) {
-                player.seekTo(targetTime, true);
-            }
-        });
+            // 4. Barra de Progreso (Lógica para NO adelantar)
+            progressContainer.addEventListener('click', (e) => {
+                const rect = progressContainer.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const clickedPercent = (x / progressContainer.offsetWidth);
+                const duration = player.getDuration();
+                const currentTime = player.getCurrentTime();
+
+                const targetTime = duration * clickedPercent;
+
+                // ✅ SOLO permite buscar si el tiempo es ANTERIOR al actual
+                if (targetTime < currentTime) {
+                    player.seekTo(targetTime, true);
+                }
+            });
 
 
-        // ❌ Bloquea velocidad de reproducción
-        player.setPlaybackRate(1);
-        player.addEventListener("onPlaybackRateChange", () => {
+            // ❌ Bloquea velocidad de reproducción
             player.setPlaybackRate(1);
-        });
+            player.addEventListener("onPlaybackRateChange", () => {
+                player.setPlaybackRate(1);
+            });
 
-        // ⏳ Actualiza la barra de progreso
-        setInterval(() => {
-            if (!hasEnded && player.getDuration) {
-                const progress = (player.getCurrentTime() / player.getDuration()) * 100;
-                progressBar.style.width = progress + '%';
-            }
-        }, 250);
-    }
-
-    function onPlayerStateChange(event) {
-        const playIcon = document.getElementById('play-icon');
-        const pauseIcon = document.getElementById('pause-icon');
-
-        // Actualizar icono de Play/Pausa
-        if (event.data === YT.PlayerState.PLAYING) {
-            playIcon.classList.add('hidden');
-            pauseIcon.classList.remove('hidden');
-        } else {
-            playIcon.classList.remove('hidden');
-            pauseIcon.classList.add('hidden');
+            // ⏳ Actualiza la barra de progreso
+            setInterval(() => {
+                if (!hasEnded && player.getDuration) {
+                    const progress = (player.getCurrentTime() / player.getDuration()) * 100;
+                    progressBar.style.width = progress + '%';
+                }
+            }, 250);
         }
 
-        // --- LÓGICA DE FINALIZACIÓN ---
-        if (event.data === YT.PlayerState.ENDED && !hasEnded) {
-            hasEnded = true;
-            document.getElementById('progress-bar').style.width = '100%';
-            document.getElementById('success-message').classList.remove('hidden');
+        function onPlayerStateChange(event) {
+            const playIcon = document.getElementById('play-icon');
+            const pauseIcon = document.getElementById('pause-icon');
 
-            // ✅ NUEVO: Salir de pantalla completa si es necesario
-            // Esto comprueba si algún elemento está en pantalla completa.
-            if (document.fullscreenElement) {
-                // Si es así, le pide al documento que salga del modo de pantalla completa.
-                document.exitFullscreen();
+            // Actualizar icono de Play/Pausa
+            if (event.data === YT.PlayerState.PLAYING) {
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
+            } else {
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
             }
 
-            // ✅ LLAMAR a Livewire
-            const component = Livewire.find(document.querySelector('[wire\\:id]').getAttribute('wire:id'));
-            if(component) {
-                component.call('confirmationVideo');
+            // --- LÓGICA DE FINALIZACIÓN ---
+            if (event.data === YT.PlayerState.ENDED && !hasEnded) {
+                hasEnded = true;
+                document.getElementById('progress-bar').style.width = '100%';
+                document.getElementById('success-message').classList.remove('hidden');
+
+                // ✅ NUEVO: Salir de pantalla completa si es necesario
+                // Esto comprueba si algún elemento está en pantalla completa.
+                if (document.fullscreenElement) {
+                    // Si es así, le pide al documento que salga del modo de pantalla completa.
+                    document.exitFullscreen();
+                }
+
+                // ✅ LLAMAR a Livewire
+                const component = Livewire.find(document.querySelector('[wire\\:id]').getAttribute('wire:id'));
+                if (component) {
+                    component.call('confirmationVideo');
+                }
             }
         }
-    }
-</script>
- 
+    </script>
+
 
 
     <script>

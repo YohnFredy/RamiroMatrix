@@ -9,7 +9,7 @@
             ],
 
             [
-                'name' => 'Matrix',
+                'name' => 'matrix',
                 'icon' => 'network',
                 'route' => 'matrix.tree',
             ],

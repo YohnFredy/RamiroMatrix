@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\ForcedMatrix;
-use App\Models\MatrixTotal;
+use App\Models\Forcedmatrix;
+use App\Models\matrixTotal;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -20,7 +20,7 @@ class RegisterSeeder extends Seeder
     {
 
         $faker = Faker::create();
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 5; $i++) {
 
             $user = User::create([
                 /* 'username' => strtolower($faker->unique()->userName), */
@@ -42,7 +42,7 @@ class RegisterSeeder extends Seeder
                 'address' => $faker->address,
             ]);
 
-            MatrixTotal::create([
+            matrixTotal::create([
                 'user_id' =>  $user->id,
             ]);
 
@@ -52,13 +52,13 @@ class RegisterSeeder extends Seeder
                 $sponsor = 1;
             }
 
-            $placement = MatrixTotal::where('status', 'active')
+            $placement = matrixTotal::where('status', 'active')
                 ->where('current_affiliates', '<', 3)
                 ->orderBy('user_id')
                 ->firstOrFail();
 
             // Crear el registro en la matriz forzada
-            ForcedMatrix::create([
+            Forcedmatrix::create([
                 'user_id' => $user->id,
                 'placement_id' => $placement->user_id,
                 'sponsor_id' => $sponsor,
@@ -74,15 +74,15 @@ class RegisterSeeder extends Seeder
                 'status' => $newAffiliates >= 3 ? 'full' : 'active',
             ]);
 
-            $sponsor =  MatrixTotal::where('user_id', $sponsor)->first();
+            $sponsor =  matrixTotal::where('user_id', $sponsor)->first();
             $sponsor->increment('direct_affiliates');
 
             $sponsorId = $placement->user_id;
 
             $nivel2 = 0;
-            while ($matrix = ForcedMatrix::where('user_id', $sponsorId)->first()) {
+            while ($matrix = Forcedmatrix::where('user_id', $sponsorId)->first()) {
 
-                $matrixTotal = MatrixTotal::where('user_id', $matrix->placement_id)
+                $matrixTotal = matrixTotal::where('user_id', $matrix->placement_id)
                     ->lockForUpdate()
                     ->first();
 
@@ -104,9 +104,9 @@ class RegisterSeeder extends Seeder
 
 
             $sponsorId = $user->id;
-            while ($matrix = ForcedMatrix::where('user_id', $sponsorId)->first()) {
+            while ($matrix = Forcedmatrix::where('user_id', $sponsorId)->first()) {
 
-                $matrixTotal = MatrixTotal::where('user_id', $matrix->sponsor_id)
+                $matrixTotal = matrixTotal::where('user_id', $matrix->sponsor_id)
                     ->lockForUpdate()
                     ->first();
 

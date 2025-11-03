@@ -5,8 +5,8 @@
     @include('partials.head')
 </head>
 
-<body class="min-h-screen bg-white/95 text-ink">
-    <flux:sidebar sticky stashable class=" shadow-lg bg-zinc-50  shadow-ink">
+<body class="min-h-screen bg-white/95 text-base-900">
+    <flux:sidebar sticky stashable class=" shadow-lg bg-base-50  shadow-base-900">
         <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
         <a href="" class="mr-5 flex items-center space-x-2" wire:navigate>
@@ -30,8 +30,20 @@
             ['name' => 'Productos', 'route' => 'admin.products.index', 'iconBlade' => 'shopping-cart'],
         ]" />
 
+        {{-- video --}}
+        <div class=" space-y-1">
+            <x-menu-item title="videos" iconBlade="play-circle" :routes="['admin.videos.index']" />
+        </div>
 
+        <x-menu-item title="Negocios aliados" iconBlade='building-office-2' :routes="['admin.businesses.index']" />
+
+        <x-menu-item title="ventas" iconBlade='building-office-2' :routes="['admin.sales.index']" />
+        
         <flux:spacer />
+        <flux:spacer />
+
+
+
 
         <!-- Desktop User Menu -->
         <flux:dropdown position="bottom" align="start">
@@ -77,7 +89,7 @@
     </flux:sidebar>
 
     <!-- Mobile User Menu -->
-    <flux:header class="lg:hidden bg-white shadow-md shadow-ink">
+    <flux:header class="lg:hidden bg-white shadow-md shadow-base-900">
         <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
 
         <flux:spacer />

@@ -2,18 +2,18 @@
 
 namespace Database\Seeders;
 
-use App\Models\MatrixTotal;
+use App\Models\matrixTotal;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class MatrixTotalSeeder extends Seeder
+class matrixTotalSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        MatrixTotal::create([
+        matrixTotal::create([
             'user_id' => 1,
             'status' => 'active',
             'current_affiliates' => 0,
